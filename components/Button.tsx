@@ -18,10 +18,10 @@ const Button = ({ title, type, leftIcon, rightIcon, isSubmitting, handleClick, b
     <button
         type={type || 'button'}
         disable={isSubmitting}
-        className="flexCenter gap-3 px-4 py-3"
-        onClick={handleClick}
+        className={` flexCenter gap-3 px-4 py-3 ${textColor ? textColor : 'text-[#5E6F00]'} ${isSubmitting ? 'bg-black/50' : (bgColor ? bgColor : 'bg-[#D8FF00]')} rounded-xl text-md font-medium max-md:w-full`}
+        
     >
-    {leftIcon && <Image src={leftIcon} width={14} height={14} alt="left" />}
+    {leftIcon && <Image src={leftIcon} width={14} height={14} alt="left"  />}
     {rightIcon && <Image src={rightIcon} width={14} height={14} alt="left" />}    
     {title}
     </button>

@@ -1,6 +1,7 @@
 import { GraphQLClient } from "graphql-request";
 import { getUserQuery } from "@/graphql";
 import { createUserMutation } from "@/graphql";
+import { ProjectForm } from "@/common.types";
 
 //SET IF PRODUCTION OR DEV ENVIROMENT
 const isProduction = process.env.NODE_ENV === 'production';
@@ -36,4 +37,18 @@ export const createUser = (name: string, email: string, avatarUrl: string ) => {
     }
 
     return makeGraphQLRequest(createUserMutation, variables)
+}
+
+export const uploadImage = async (imagePath: string) => {
+
+    try {
+        const response = await fetch(`${serverUrl}/api/upload`)
+    } catch (error) {
+        
+    }
+}
+
+// creating project 
+export const createNewProject = async (form: ProjectForm, creatorId: string, token: string) => {
+    const imageUrl = await uploadImage(form.image)
 }
