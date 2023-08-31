@@ -5,9 +5,9 @@ import { NextResponse } from "next/server";
 import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({ 
-    cloud_name: 'dpubtkbwd', 
-    api_key: '945187397165548', 
-    api_secret: 'PrMGcEeBd1a1GsBI6kJgw9Rk_FM' 
+    cloud_name: process.env.CLOUDINARY_NAME, 
+    api_key: process.env.CLOUDINARY_KEY, 
+    api_secret: process.env.CLOUDINARY_SECRET, 
 });
 
 export async function POST(request: Request) {
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
     if(!path) {
         return NextResponse.json(
-            { message: 'Image path is required' }
+            { message: 'Image path is required' },
             { status: 400 }
         )
     }
@@ -28,7 +28,11 @@ export async function POST(request: Request) {
             overwritte: true,
             transformation: [{ width: 1000, heigth: 752, crop: 'scale' }]
         }
+        const result = await cloudinary.uploader.upload(path, options);
+
+        return NextResponse.json(result, { status: 200 })
+
     } catch (error) {
-        
+        return NextResponse.json( { message: error }, { status: 500 })
     }
 }
